@@ -35,16 +35,15 @@ describe "GRATR implementation" do
   end
   
   it "should be able to load objects from the pstore" do
-    class A
-      attr_accessor :special_var
-      include Persistence
-    end
-    a = A.new
-    a.special_var = 123
-    lambda{a.save}.should_not raise_error
-    lambda{@a = GRATR.load('graph')}.should_not raise_error
-    @a.should be_is_a(A)
-    @a.special_var.should eql(123)
-    Object.send(:remove_const, :A)
+    @g = Digraph.new
+    @g.add_edge!(6,7)
+    lambda{@g.save}.should_not raise_error
+    lambda{@g = GRATR.load('graph')}.should_not raise_error
+    @g.should be_is_a(Digraph)
+    @g.vertices.should be_include(6)
+    @g.vertices.should be_include(7)
+    @g.vertices.size.should eql(2)
+    @g1 = TenaciousG.load('graph')
+    @g1.should eql(@g)
   end
 end

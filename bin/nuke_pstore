@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby 
+
+require File.expand_path(File.join(File.dirname(__FILE__), %w(.. lib tenacious_g)))
+location = GRATR.location
+
+unless File.exist?(location)
+  puts "There are no graphs to delete.  Exiting." 
+  exit 
+end
+
+puts "This will remove all graphs stored in #{location}  \nAre you sure you want to do this? (yN)"
+response = gets.chomp
+
+if response == "y"
+  `rm #{location}`
+  puts "Graphs deleted."
+else
+  puts "Command aborted, nothing deleted."
+end

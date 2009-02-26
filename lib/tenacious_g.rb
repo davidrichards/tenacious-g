@@ -21,3 +21,11 @@ Dir.glob("#{File.dirname(__FILE__)}/tenacious_g/*.rb").each { |file| require fil
 GRATR::Digraph.send(:include, TenaciousG::Persistence)
 GRATR::UndirectedGraph.send(:include, TenaciousG::Persistence)
 GRATR.send(:extend, TenaciousG::Persistence::ClassMethods)
+TenaciousG.send(:extend, TenaciousG::Persistence::ClassMethods)
+
+# Convenience only, especially for the console
+include GRATR
+include TenaciousG
+
+# require 'playground'
+# @g = Playground.new.generate

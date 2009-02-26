@@ -2,14 +2,16 @@
 
 Gem::Specification.new do |s|
   s.name = %q{tenacious_g}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Richards"]
-  s.date = %q{2009-02-25}
+  s.date = %q{2009-02-26}
+  s.default_executable = %q{tg}
   s.description = %q{TODO}
   s.email = %q{davidlamontrichards@gmail.com}
-  s.files = ["lib/tenacious_g", "lib/tenacious_g/overrides", "lib/tenacious_g/overrides/file.rb", "lib/tenacious_g/overrides/module.rb", "lib/tenacious_g/persistence.rb", "lib/tenacious_g/tainting_methods.rb", "lib/tenacious_g.rb", "spec/spec_helper.rb", "spec/tenacious_g", "spec/tenacious_g/overrides", "spec/tenacious_g/overrides/file_spec.rb", "spec/tenacious_g/overrides/module_spec.rb", "spec/tenacious_g/persistence_spec.rb", "spec/tenacious_g_spec.rb"]
+  s.executables = ["tg"]
+  s.files = ["VERSION.yml", "bin/tg", "lib/tenacious_g", "lib/tenacious_g/overrides", "lib/tenacious_g/overrides/arc.rb", "lib/tenacious_g/overrides/file.rb", "lib/tenacious_g/overrides/module.rb", "lib/tenacious_g/persistence.rb", "lib/tenacious_g/tainting_methods.rb", "lib/tenacious_g.rb", "spec/spec_helper.rb", "spec/tenacious_g", "spec/tenacious_g/overrides", "spec/tenacious_g/overrides/arc_spec.rb", "spec/tenacious_g/overrides/file_spec.rb", "spec/tenacious_g/overrides/module_spec.rb", "spec/tenacious_g/persistence_spec.rb", "spec/tenacious_g_spec.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/davidrichards/tenacious_g}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]

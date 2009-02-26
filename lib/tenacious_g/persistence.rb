@@ -7,13 +7,16 @@ module TenaciousG #:nodoc:
     module ClassMethods #:nodoc:
 
       # Use this like g = GRATR.load('my_graph')
-      def load(name, dir=nil)
+      def load(name='graph', dir=nil)
+        pstore = PStore.new(self.location)
+        instance << pstore.transaction { pstore[name] }
+        current
+      end
+      
+      def location
         dir ||= File.expand_path(File.join(ENV['HOME'], '.tenacious_g'))
         filename = "graph_db.pstore"
         location = File.expand_path(File.join(dir, filename))
-        pstore = PStore.new(location)
-        instance << pstore.transaction { pstore[name] }
-        current
       end
 
       # A quasi-singleton that keeps track of whatever I've been working on.
@@ -33,10 +36,11 @@ module TenaciousG #:nodoc:
       end
     end
     
-    # For tonight, I'm going to save the whole graph at once!!
-    def save
+    def save(name=nil)
+      self.name = name if name
       pstore.transaction { pstore[self.name] = self }
     end
+    alias :save_as :save
     
     # This gives us access to the persistent store.  
     def pstore
@@ -44,15 +48,8 @@ module TenaciousG #:nodoc:
     end
     protected :pstore
     
-    # If you change the location (name or directory) on the graph, this will be called.
-    def reset_pstore; @pstore = nil end
-
     # You can set the name of the graph.
-    def name=(str)
-      @name = str
-      reset_pstore
-    end
-    
+    attr_writer :name
     # This is the name of the graph.  Defaults to graph.
     def name
       @name ||= 'graph' 
@@ -63,6 +60,10 @@ module TenaciousG #:nodoc:
       "graph_db.pstore"
     end
     
+    # If you change the location (directory) on the graph, this needs to be
+    # called. 
+    def reset_pstore; @pstore = nil end
+
     # The name of the directory to store the persistent store.
     def directory=(str)
       @directory = str
