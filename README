@@ -1,5 +1,7 @@
-tenacious_g===========
-Description goes here.
+tenacious_g
+===========
+
+This is a persistent graph library, extending Gratr.
 
 COPYRIGHT
 =========

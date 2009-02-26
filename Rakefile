@@ -23,22 +23,16 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib' << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.libs << 'lib' << 'spec'
+  t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |t|
-    t.libs << 'test'
-    t.test_files = FileList['test/**/*_test.rb']
-    t.verbose = true
-  end
-rescue LoadError
-  puts "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
+Spec::Rake::SpecTask.new(:rcov) do |t|
+  t.libs << 'lib' << 'spec'
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.rcov = true
 end
 
 begin
