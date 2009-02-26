@@ -10,7 +10,7 @@ describe Persistence do
       include Persistence
     end
     a = A.new
-    default_location = File.expand_path(File.join(ENV['HOME'], %w(.tenacious_g graph.pstore)))
+    default_location = File.expand_path(File.join(ENV['HOME'], %w(.tenacious_g graph_db.pstore)))
     
     a.location.should eql(default_location)
     Object.send(:remove_const, :A)
@@ -26,7 +26,7 @@ describe Persistence do
     a.directory.should eql(default_dir)
     a.directory = '/tmp'
     a.directory.should eql('/tmp')
-    a.location.should eql('/tmp/graph.pstore')
+    a.location.should eql('/tmp/graph_db.pstore')
     Object.send(:remove_const, :A)
   end
   
@@ -41,7 +41,6 @@ describe Persistence do
     a.name.should eql(default_name)
     a.name = 'george'
     a.name.should eql('george')
-    a.location.should eql("#{default_dir}/george.pstore")
     Object.send(:remove_const, :A)
   end
   
@@ -62,7 +61,7 @@ describe Persistence do
     a = A.new
     a.special_var = 123
     lambda{a.save}.should_not raise_error
-    lambda{@a = A.load('graph')}.should_not raise_error
+    lambda{@a = GRATR.load('graph')}.should_not raise_error
     @a.should be_is_a(A)
     @a.special_var.should eql(123)
     Object.send(:remove_const, :A)

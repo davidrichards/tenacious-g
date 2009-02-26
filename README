@@ -3,7 +3,25 @@ tenacious_g
 
 This is a persistent graph library, extending Gratr.
 
+save, load, name, directory
+
+TODO: 
+
+BridgeNode
+Barron
+Partitioner
+Optimized Search
+
+== Couch Stuff
+
+* CouchDB
+* Couch Rest
+* Overlord
+* zap in and out data in chunks
+** views set for query types: adjacency_list, maybe some subgraph groups...
+
+
 COPYRIGHT
 =========
 
-Copyright (c) 2008 David Richards. See LICENSE for details.
+Copyright (c) 2009 David Richards. See LICENSE for details.

@@ -6,18 +6,31 @@ module TenaciousG #:nodoc:
     
     module ClassMethods #:nodoc:
 
-      # Use this like g = GRATR::Graph.load('my_graph')
+      # Use this like g = GRATR.load('my_graph')
       def load(name, dir=nil)
         dir ||= File.expand_path(File.join(ENV['HOME'], '.tenacious_g'))
-        filename = name + ".pstore"
+        filename = "graph_db.pstore"
         location = File.expand_path(File.join(dir, filename))
         pstore = PStore.new(location)
-        pstore.transaction { pstore[name] }
+        instance << pstore.transaction { pstore[name] }
+        current
       end
-    end    
-    
-    def self.included(base)
-      base.send(:extend, ClassMethods)
+
+      # A quasi-singleton that keeps track of whatever I've been working on.
+      def instance
+        @@instance ||= []
+      end
+      
+      # The most recent graph.
+      def current
+        instance.last
+      end
+      
+      # Finds or loads a graph.
+      def find(name, dir=nil)
+        found = instance.find {|graph| graph.name == name}
+        found ||= load(name, dir)
+      end
     end
     
     # For tonight, I'm going to save the whole graph at once!!
@@ -44,11 +57,10 @@ module TenaciousG #:nodoc:
     def name
       @name ||= 'graph' 
     end
-   
-    # This is the filename.  It is always the name of the graph with a
-    # pstore suffix (graph.pstore) 
+
+    # Just using a standard name for now.
     def filename
-      self.name + ".pstore"
+      "graph_db.pstore"
     end
     
     # The name of the directory to store the persistent store.

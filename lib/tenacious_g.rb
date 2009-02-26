@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'gratr'
+require 'uuid'
 
 $:.unshift(File.dirname(__FILE__))
 
@@ -17,6 +18,6 @@ require 'tenacious_g/tainting_methods'
 # Get the first-level files for the application.  
 Dir.glob("#{File.dirname(__FILE__)}/tenacious_g/*.rb").each { |file| require file }
 
-module GRATR::Graph
-  include TenaciousG::Persistence
-end
+GRATR::Digraph.send(:include, TenaciousG::Persistence)
+GRATR::UndirectedGraph.send(:include, TenaciousG::Persistence)
+GRATR.send(:extend, TenaciousG::Persistence::ClassMethods)
