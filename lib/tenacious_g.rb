@@ -26,6 +26,3 @@ TenaciousG.send(:extend, TenaciousG::Persistence::ClassMethods)
 # Convenience only, especially for the console
 include GRATR
 include TenaciousG
-
-# require 'playground'
-# @g = Playground.new.generate

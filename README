@@ -1,25 +1,37 @@
 tenacious_g
 ===========
 
-This is a persistent graph library, extending Gratr.
+This is a persistent graph library, extending Gratr.  It is meant to be a simple thing: 
 
-save, load, name, directory
+  [davidrichards]$: tg
+  Loading Tenacious G (Persistent Graphs Database)
+  >> @g = Digraph.new
+  => GRATR::Digraph[].
+  >> @g.add_edge!(2,3)
+  => GRATR::Digraph[GRATR::Arc[2,3,nil]].
+  >> @g.save('some_name')
+  => nil
+  >> @g = Digraph.new
+  => GRATR::Digraph[].
+  >> @g.add_edge!(2,3)
+  => GRATR::Digraph[GRATR::Arc[2,3,nil]].
+  >> @g.save('some_name')
+  => nil
+  >> @g1 = TenaciousG.load('some_name')
+  => GRATR::Digraph[GRATR::Arc[2,3,nil]].
+  >> @g1 == @g
+  => true
+  >> @g.add_edge!(1,2)
+  => GRATR::Digraph[GRATR::Arc[2,3,nil], GRATR::Arc[1,2,nil]].
+  >> @g.name
+  => "some_name"
+  >> @g.location
+  => "/Users/davidrichards/.tenacious_g/some_name.graph"
+  >> @g.save
+  
+I include GRATR and TenaciousG, so that it's a little more convenient to work with these things.  I wrote this to make using graphs with machine learning a simpler decision.  As long as a graph can fit in memory, this is probably a good choice.  When things are too big for that, or slowing down from all the computation you need to run, check back in to see if I have my distributed graph database finished yet.  
 
-TODO: 
-
-BridgeNode
-Barron
-Partitioner
-Optimized Search
-
-== Couch Stuff
-
-* CouchDB
-* Couch Rest
-* Overlord
-* zap in and out data in chunks
-** views set for query types: adjacency_list, maybe some subgraph groups...
-
+There is a console, shown above (tg), but this was mostly intended to be included in other libraries or applications.  
 
 COPYRIGHT
 =========
