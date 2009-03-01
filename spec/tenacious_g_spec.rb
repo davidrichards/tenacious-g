@@ -34,7 +34,7 @@ describe "GRATR implementation" do
     GRATR::UndirectedGraph.included_modules.should be_include(TenaciousG::Persistence)
   end
   
-  it "should be able to load objects from the pstore" do
+  it "should be able to load objects from the filesystem" do
     @g = Digraph.new
     @g.add_edge!(6,7)
     lambda{@g.save}.should_not raise_error
